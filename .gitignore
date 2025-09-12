@@ -1,2 +1,12 @@
 .out
 .vscode
+
+review.pdf
+review.aux
+review.log
+review.bbl
+review.blg
+review.bcf
+review.run.xml
+review.fdb_latexmk
+review.fls
