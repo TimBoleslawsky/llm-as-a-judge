@@ -1,0 +1,14 @@
+\begin{thebibliography}{1}
+\providecommand{\natexlab}[1]{#1}
+\providecommand{\url}[1]{\texttt{#1}}
+\expandafter\ifx\csname urlstyle\endcsname\relax
+  \providecommand{\doi}[1]{doi: #1}\else
+  \providecommand{\doi}{doi: \begingroup \urlstyle{rm}\Url}\fi
+
+\bibitem[Li et~al.(2024)Li, Dong, Chen, Su, Zhou, Ai, Ye, and Liu]{li2024_llmsasjudges}
+Haitao Li, Qian Dong, Junjie Chen, Huixue Su, Yujia Zhou, Qingyao Ai, Ziyi Ye, and Yiqun Liu.
+\newblock Llms-as-judges: A comprehensive survey on llm-based evaluation methods.
+\newblock \emph{arXiv preprint arXiv:2412.05579}, 2024.
+\newblock URL \url{https://arxiv.org/abs/2412.05579}.
+
+\end{thebibliography}

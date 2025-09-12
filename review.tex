@@ -4,12 +4,12 @@
 \usepackage{natbib}
 \usepackage{hyperref}
 \usepackage{setspace}
+\usepackage{bookmark}
+\usepackage{import}
+\usepackage{url}
+\usepackage{cleveref}
 
 \geometry{margin=1in}
-\onehalfspacing
-
-\usepackage{url}
-\usepackage{hyperref}
 
 \def\BibTeX{{\rm B\kern-.05em{\sc i\kern-.025em b}\kern-.08em
     T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
@@ -25,8 +25,8 @@
 
 \import{./includes/}{1-introduction.tex}
 
-\bibliographystyle{ieeetr}
-\bibliography{includes/references.bib}
+\bibliographystyle{plainnat}
+\bibliography{includes/references}
 \vspace{12pt}
 
 \end{document}

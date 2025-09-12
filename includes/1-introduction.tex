@@ -1,51 +1,52 @@
 \section{Introduction}
 Large Language Models (LLMs) have become increasingly central to automated code generation and evaluation tasks. Their ability to both produce solutions and assess responses has opened new research avenues, but also raised questions about reliability, bias, and alignment with human judgment. A crucial research strand focuses on \textit{LLMs as a judge}, where a model evaluates whether a generated response meets some qualitative criteria or the requirements of an input request. This literature review surveys the current status of research concerning the concept of LLM as a judge. 
+Test~\citet{li2024_llmsasjudges}
 
-\section{LLMs as Judges: Conceptual Background}
-The paradigm of \textit{LLMs as a judge} was crystallized by \citet{li2024_llmsasjudges}, who introduced JudgeLM as a framework for studying how models can function as evaluators. The central motivation is to reduce reliance on costly human annotations and to create scalable evaluation pipelines for tasks like instruction-following, dialogue quality, and code correctness. JudgeLM and subsequent works emphasize that a judge must do more than measure surface similarity—it must capture nuanced requirement satisfaction and correctness.
+% \section{LLMs as Judges: Conceptual Background}
+% The paradigm of \textit{LLMs as a judge} was crystallized by \citet{li2024_llmsasjudges}, who introduced JudgeLM as a framework for studying how models can function as evaluators. The central motivation is to reduce reliance on costly human annotations and to create scalable evaluation pipelines for tasks like instruction-following, dialogue quality, and code correctness. JudgeLM and subsequent works emphasize that a judge must do more than measure surface similarity—it must capture nuanced requirement satisfaction and correctness.
 
-The problem is especially pronounced in code generation. Unlike open-ended text generation, code tasks usually have well-defined correctness criteria. Still, verifying alignment between requirements and generated code often goes beyond syntactic validity: it involves checking logical correctness, adherence to constraints, and robustness.
+% The problem is especially pronounced in code generation. Unlike open-ended text generation, code tasks usually have well-defined correctness criteria. Still, verifying alignment between requirements and generated code often goes beyond syntactic validity: it involves checking logical correctness, adherence to constraints, and robustness.
 
-\section{Datasets for Evaluating LLM-as-Judge Frameworks}
-Datasets play a critical role in advancing this line of research. Several benchmark collections have emerged:
+% \section{Datasets for Evaluating LLM-as-Judge Frameworks}
+% Datasets play a critical role in advancing this line of research. Several benchmark collections have emerged:
 
-\begin{itemize}
-    \item \textbf{MT-Bench and Chatbot Arena}: Introduced by \citet{zheng2023judgelm}, these datasets capture multi-turn dialogue and human preferences, providing ground truth for comparison between human and model judgments.
-    \item \textbf{Eval4NLP Shared Tasks}: These benchmarks focus on automatic evaluation methods in NLP, highlighting the challenge of aligning system-based judgments with human annotations \citep{zeng2023llm}. While not specific to code, they illustrate methods transferable to code evaluation.
-    \item \textbf{Code Evaluation Benchmarks}: Works such as \citet{chen2021evaluating} and \citet{hendrycks2021measuring} introduced HumanEval and APPS, where correctness is tested via unit tests. However, \citet{fu2023gptscore} stress that correctness is only part of the picture: requirement satisfaction and style adherence are equally important.
-    \item \textbf{Multi-judge Datasets}: \citet{wang2023aligning} collected data where multiple judges (human and LLMs) evaluated outputs. This allowed meta-evaluation—comparing how well judges themselves align with majority or expert judgments.
-\end{itemize}
+% \begin{itemize}
+%     \item \textbf{MT-Bench and Chatbot Arena}: Introduced by \citet{zheng2023judgelm}, these datasets capture multi-turn dialogue and human preferences, providing ground truth for comparison between human and model judgments.
+%     \item \textbf{Eval4NLP Shared Tasks}: These benchmarks focus on automatic evaluation methods in NLP, highlighting the challenge of aligning system-based judgments with human annotations \citep{zeng2023llm}. While not specific to code, they illustrate methods transferable to code evaluation.
+%     \item \textbf{Code Evaluation Benchmarks}: Works such as \citet{chen2021evaluating} and \citet{hendrycks2021measuring} introduced HumanEval and APPS, where correctness is tested via unit tests. However, \citet{fu2023gptscore} stress that correctness is only part of the picture: requirement satisfaction and style adherence are equally important.
+%     \item \textbf{Multi-judge Datasets}: \citet{wang2023aligning} collected data where multiple judges (human and LLMs) evaluated outputs. This allowed meta-evaluation—comparing how well judges themselves align with majority or expert judgments.
+% \end{itemize}
 
-These datasets underpin both direct evaluation (testing whether a response is correct) and meta-evaluation (testing whether an evaluator is reliable).
+% These datasets underpin both direct evaluation (testing whether a response is correct) and meta-evaluation (testing whether an evaluator is reliable).
 
-\section{Evaluation Metrics}
-Metrics for evaluating LLMs as judges fall into three categories:
+% \section{Evaluation Metrics}
+% Metrics for evaluating LLMs as judges fall into three categories:
 
-\subsection{Agreement with Human Judgment}
-The most direct measure of an evaluator’s quality is agreement with human annotators. \citet{fu2023gptscore} introduced GPTScore, which correlates LLM-based evaluation with human preference judgments across text and code tasks. Similarly, \citet{xu2023survey} stress that correlation coefficients such as Kendall’s tau and Spearman’s rho are widely adopted to measure alignment.
+% \subsection{Agreement with Human Judgment}
+% The most direct measure of an evaluator’s quality is agreement with human annotators.\citet{fu2023gptscore} introduced GPTScore, which correlates LLM-based evaluation with human preference judgments across text and code tasks. Similarly, \citet{xu2023survey} stress that correlation coefficients such as Kendall’s tau and Spearman’s rho are widely adopted to measure alignment.
 
-\subsection{Functional Correctness}
-For code generation, execution-based evaluation remains critical. HumanEval \citep{chen2021evaluating} defines correctness as passing predefined test cases. However, execution-only approaches are limited because they miss requirement-specific constraints not encoded in tests. Thus, judge models are increasingly combined with functional correctness tests to balance efficiency and comprehensiveness.
+% \subsection{Functional Correctness}
+% For code generation, execution-based evaluation remains critical. HumanEval \citep{chen2021evaluating} defines correctness as passing predefined test cases. However, execution-only approaches are limited because they miss requirement-specific constraints not encoded in tests. Thus, judge models are increasingly combined with functional correctness tests to balance efficiency and comprehensiveness.
 
-\subsection{Robustness and Bias Metrics}
-Recent works emphasize robustness of LLM judges. \citet{wang2023aligning} propose adversarial settings where LLM judges must handle misleading or ambiguous instructions. They also explore judge consistency across paraphrased prompts and semantically equivalent but syntactically different outputs. Bias metrics, such as preference for verbosity or syntactic patterns, are being proposed to better characterize weaknesses of evaluators.
+% \subsection{Robustness and Bias Metrics}
+% Recent works emphasize robustness of LLM judges.\citet{wang2023aligning} propose adversarial settings where LLM judges must handle misleading or ambiguous instructions. They also explore judge consistency across paraphrased prompts and semantically equivalent but syntactically different outputs. Bias metrics, such as preference for verbosity or syntactic patterns, are being proposed to better characterize weaknesses of evaluators.
 
-\section{Evaluating the Evaluator}
-A particularly novel contribution of this field is the explicit \textit{evaluation of evaluators}. Unlike classical metrics, which assume the metric itself is ground truth, here researchers directly assess judge reliability.
+% \section{Evaluating the Evaluator}
+% A particularly novel contribution of this field is the explicit \textit{evaluation of evaluators}. Unlike classical metrics, which assume the metric itself is ground truth, here researchers directly assess judge reliability.
 
-\citet{fu2023gptscore} demonstrate that GPT-4-based judges often outperform traditional automatic metrics in correlation with human ratings, but they also show systematic biases (e.g., preferring longer outputs). Similarly, \citet{wang2023aligning} highlight that different LLM judges can disagree substantially, motivating ensemble or consensus-based evaluation frameworks.
+% \citet{fu2023gptscore} demonstrate that GPT-4-based judges often outperform traditional automatic metrics in correlation with human ratings, but they also show systematic biases (e.g., preferring longer outputs). Similarly, \citet{wang2023aligning} highlight that different LLM judges can disagree substantially, motivating ensemble or consensus-based evaluation frameworks.
 
-Another perspective is \textit{calibration}. A well-calibrated judge should not only predict correctness but also assign confidence scores that reflect uncertainty. Early works suggest LLM judges often overstate confidence \citep{zheng2023judgelm}.
+% Another perspective is \textit{calibration}. A well-calibrated judge should not only predict correctness but also assign confidence scores that reflect uncertainty. Early works suggest LLM judges often overstate confidence \citep{zheng2023judgelm}.
 
-\section{Open Challenges}
-Despite progress, several challenges remain:
+% \section{Open Challenges}
+% Despite progress, several challenges remain:
 
-\begin{itemize}
-    \item \textbf{Dependence on Human Labels}: While LLM judges reduce annotation costs, they still rely on high-quality labeled datasets for benchmarking.
-    \item \textbf{Generalization Across Domains}: Judges trained on dialogue or summarization tasks may not generalize well to code evaluation.
-    \item \textbf{Transparency and Bias}: Understanding biases in judge models remains limited. Future work must identify and mitigate systematic errors.
-    \item \textbf{Multi-level Evaluation}: Capturing both functional correctness and requirement adherence is still unsolved for complex multi-step tasks.
-\end{itemize}
+% \begin{itemize}
+%     \item \textbf{Dependence on Human Labels}: While LLM judges reduce annotation costs, they still rely on high-quality labeled datasets for benchmarking.
+%     \item \textbf{Generalization Across Domains}: Judges trained on dialogue or summarization tasks may not generalize well to code evaluation.
+%     \item \textbf{Transparency and Bias}: Understanding biases in judge models remains limited. Future work must identify and mitigate systematic errors.
+%     \item \textbf{Multi-level Evaluation}: Capturing both functional correctness and requirement adherence is still unsolved for complex multi-step tasks.
+% \end{itemize}
 
-\section{Conclusion}
-The literature on LLMs as judges highlights a rapidly evolving research area with deep implications for automated evaluation. From JudgeLM to GPTScore, scholars have begun to systematize evaluation frameworks that balance correctness, alignment with human preferences, and robustness. While progress is evident, meta-evaluation—the evaluation of evaluators—remains both a conceptual and technical challenge. Advancing this area will require larger multi-domain datasets, robust bias analysis, and frameworks that integrate human and automated evaluation seamlessly.
+% \section{Conclusion}
+% The literature on LLMs as judges highlights a rapidly evolving research area with deep implications for automated evaluation. From JudgeLM to GPTScore, scholars have begun to systematize evaluation frameworks that balance correctness, alignment with human preferences, and robustness. While progress is evident, meta-evaluation—the evaluation of evaluators—remains both a conceptual and technical challenge. Advancing this area will require larger multi-domain datasets, robust bias analysis, and frameworks that integrate human and automated evaluation seamlessly.
