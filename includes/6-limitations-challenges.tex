@@ -1,0 +1,13 @@
+\section{Open Challenges}
+Despite progress, several challenges remain:
+
+\begin{itemize}
+    \item \textbf{Dependence on Human Labels}: While LLM judges reduce annotation costs, they still rely on high-quality labeled datasets for benchmarking.
+    \item \textbf{Generalization Across Domains}: Judges trained on dialogue or summarization tasks may not generalize well to code evaluation.
+    \item \textbf{Transparency and Bias}: Understanding biases in judge models remains limited. Future work must identify and mitigate systematic errors.
+    \item \textbf{Multi-level Evaluation}: Capturing both functional correctness and requirement adherence is still unsolved for complex multi-step tasks.
+\end{itemize}
+
+
+\subsection{Challenges and Open Problems}
+Key open issues include: multilingual consistency \cite{hada2024metal}, minimizing order and formatting sensitivity \cite{zheng2023judgelm}, mitigating evaluator bias \cite{liang2022helm}, ensuring calibration under distribution shift \cite{bavaresco2024judgebench}, and robustly integrating objective and subjective signals \cite{chen2021evaluating, li2024_llmsasjudges}. Future directions include adaptive judge ensembles, adversarial robustness auditing, and fine-grained uncertainty quantification for evaluation decisions. \cite{ouyang2022training} makes the really intersting point, that the inherent goal of common LLMs deployed today is the prediction of the next token on a webpage from the intent, which is fundamentally different from the objective “follow the user`s instructions helpfully and safely”.

@@ -1,0 +1,25 @@
+\section{LLMs as a Judge: A Definition}
+
+\subsection{Why Use LLMs as Judges}
+LLMs are adopted as evaluators because they can approximate human quality and preference judgments across diverse tasks at far lower marginal cost and latency than repeated human annotation, while achieving strong agreement and stable comparative rankings in structured protocols~\cite{li2024_llmsasjudges, zheng2023judgelm, bavaresco2024judgebench}. Traditional surface-form overlap metrics (e.g., BLEU, ROUGE) miss semantic fidelity and instruction adherence~\cite{papineni2002bleu, lin2004rouge}, whereas prompt- or preference-driven LLM judges can assess nuanced dimensions like reasoning depth, contextual grounding, and alignment~\cite{fu2023gptscore, stiennon2020learning, ouyang2022training}.
+
+\subsection{Core Components of an LLM-as-a-Judge Evaluator}
+We distill essential components (survey foundation in~\cite{li2024_llmsasjudges}) and supporting empirical frameworks:
+\begin{enumerate}
+	\item \textbf{Evaluation Scope / Scenarios}: Definition of task and domain coverage; scenario diversity and multi-axis reporting influence generalization and fairness \cite{liang2022helm, srivastava2022bigbench}.
+	\item \textbf{Input \& Context Handling}: Prompt formatting, optional retrieved or conversational context, and normalization to mitigate leakage or bias \cite{liang2022helm, hada2024metal}.
+	\item \textbf{Candidate Response Collection}: Multi-model and multi-decoding sampling to ensure informative comparisons and reduce stylistic overfitting \cite{zheng2023judgelm, chen2021evaluating}.
+	\item \textbf{Judgment Paradigm}: Pointwise scoring, pairwise preference, pass/fail (objective tests), or tournament / listwise aggregation; pairwise often yields higher resolution \cite{bradley1952rank, zheng2023judgelm, liu2024pairs, chen2021evaluating}.
+	\item \textbf{Judge Model Type}: Prompt-engineered base LLM, fine-tuned reward / preference model, or ensemble for variance and bias reduction \cite{stiennon2020learning, ouyang2022training, bavaresco2024judgebench}.
+	\item \textbf{Rubric / Prompt Template}: Dimension specification (accuracy, faithfulness, style, safety), critique-first prompting, and structured output schema \cite{fu2023gptscore, li2024_llmsasjudges}.
+	\item \textbf{Scoring Extraction \& Normalization}: Reliable parsing, per-scenario or per-dimension normalization, calibration adjustments \cite{liang2022helm, bavaresco2024judgebench}.
+	\item \textbf{Aggregation \& Ranking}: From raw scores or pairwise outcomes to global ordering (Bradley--Terry likelihood, Elo updates) with uncertainty estimates \cite{bradley1952rank, elo1978rating, zheng2023judgelm}.
+	\item \textbf{Meta-Evaluation Metrics}: Agreement (pairwise accuracy, rank correlation), calibration, robustness (order / paraphrase), fairness (subgroup disparity), consistency (variance), and efficiency / cost \cite{bavaresco2024judgebench, hada2024metal, li2024_llmsasjudges}.
+	\item \textbf{Bias \& Robustness Controls}: Order randomization, anonymized model identifiers, multilingual balancing, perturbation tests \cite{zheng2023judgelm, hada2024metal, liang2022helm}.
+	\item \textbf{Objective Signals (When Available)}: Execution-based or other task-grounded checks (e.g., unit tests for code) complement subjective judgment \cite{chen2021evaluating, li2024_llmsasjudges}.
+	\item \textbf{Uncertainty \& Abstention}: Disagreement, self-consistency variance, or model likelihood margins trigger human escalation \cite{bavaresco2024judgebench, li2024_llmsasjudges}.
+	\item \textbf{Lifecycle \& Drift Management}: Versioning, periodic recalibration with fresh human labels, distribution shift monitoring \cite{liang2022helm, li2024_llmsasjudges}.
+	\item \textbf{Documentation \& Transparency}: Separate reporting of dimensions and known limitations to avoid over-reliance on a single aggregate metric \cite{liang2022helm, bavaresco2024judgebench}.
+\end{enumerate} % TBD
+
+These components collectively operationalize the evaluator described in the problem definition, enabling systematic construction, monitoring, and iteration.

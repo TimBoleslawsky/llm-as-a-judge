@@ -1,0 +1,11 @@
+\section{Datasets for Evaluating LLM-as-Judge Frameworks}
+Datasets play a critical role in advancing this line of research. Several benchmark collections have emerged:
+
+\begin{itemize}
+    \item \textbf{MT-Bench and Chatbot Arena}: Introduced by \citet{zheng2023judgelm}, these datasets capture multi-turn dialogue and human preferences, providing ground truth for comparison between human and model judgments.
+    \item \textbf{Eval4NLP Shared Tasks}: These benchmarks focus on automatic evaluation methods in NLP, highlighting the challenge of aligning system-based judgments with human annotations \citep{zeng2023llm}. While not specific to code, they illustrate methods transferable to code evaluation.
+    \item \textbf{Code Evaluation Benchmarks}: Works such as \citet{chen2021evaluating} and \citet{hendrycks2021measuring} introduced HumanEval and APPS, where correctness is tested via unit tests. However, \citet{fu2023gptscore} stress that correctness is only part of the picture: requirement satisfaction and style adherence are equally important.
+    \item \textbf{Multi-judge Datasets}: \citet{wang2023aligning} collected data where multiple judges (human and LLMs) evaluated outputs. This allowed meta-evaluation—comparing how well judges themselves align with majority or expert judgments.
+\end{itemize}
+
+These datasets underpin both direct evaluation (testing whether a response is correct) and meta-evaluation (testing whether an evaluator is reliable).
