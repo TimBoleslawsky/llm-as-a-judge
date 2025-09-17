@@ -8,7 +8,7 @@ Let:
 	\item Request (prompt) space: $\mathcal{X}$ (task inputs~/~instructions)~\cite{srivastava2022bigbench, liang2022helm}.
 	\item Response (candidate output) space: $\mathcal{Y}$.
 	\item Optional auxiliary context (tools, retrieved docs, conversation history): $\mathcal{C}$~\cite{liang2022helm}.
-	\item A (possibly stochastic) generative LLM: $G_{\theta}: \mathcal{X} \times \mathcal{C} \to \mathcal{Y}$.
+	\item A (possibly stochastic) generative LLM\@: $G_{\theta}: \mathcal{X} \times \mathcal{C} \to \mathcal{Y}$.
 	\item We assume a latent human quality function (unobserved): $q^{*}: \mathcal{X} \times \mathcal{Y} \to \mathbb{R}$ (scalar utility encapsulating correctness, relevance, style, safety)~\cite{stiennon2020learning, ouyang2022training}. Why accounting for the latent human quality function $q^{*}$ is important will become clear in the section on evaluator construction.
 	\item Ground-truth task signal (when available): for example structured labels. For programming tasks, objective execution-based signals (unit test pass rate) ground $g(x,y)$ in functional correctness~\cite{chen2021evaluating}.
 \end{itemize}
@@ -30,7 +30,4 @@ This mirrors multi-axis scenario evaluation (HELM) and systematic separation of 
 Given the different ways to evaluate artefacts outlined in the literature, we can categorize evaluation paradigms as follows:
 \paragraph{Pointwise Scoring.} Produce a score $s = J(x,y)$ and compare to a human or rubric-derived reference signal (scalar or categorical)~\cite{fu2023gptscore, li2024_llmsasjudges}. 
 \paragraph{Pairwise Preference.} Given $(x, y_i, y_j)$, provide a preference for either $y_i$ or $y_j$~\cite{zheng2023judgelm}. This approach is extended by one, \emph{likwise / tournament aggregation} methods. For a set $\{y_1,\dots,y_k\}$, produce a permutation or aggregate scores using Elo~\cite{elo1978rating, zheng2023judgelm} or Bradley-Terry / Plackett-Luce style models~\cite{bradley1952rank} to obtain stable rankings, as operationalized in live arenas~\cite{zheng2023judgelm}. And two, \emph{reference-guided grading}. Given a reference response $y^{*}$ (e.g., ground-truth solution), provide preference for candidates $y_i$ and $y_j$ via similarity or entailment metrics~\cite{zheng2023judgelm}.
-
-\vspace{0.5em}
-This formalization provides the scaffold for the subsequent methodology and experimental design sections.
 

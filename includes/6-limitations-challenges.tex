@@ -1,13 +1,26 @@
-\section{Open Challenges}
-Despite progress, several challenges remain:
+\section{Applications and Problem Settings for LLM-as-Judge} %TBD
+We summarize representative use cases and problem settings where LLM-based evaluators are applied. For meta-evaluation criteria and judge reliability, see Chapter~5.
 
-\begin{itemize}
-    \item \textbf{Dependence on Human Labels}: While LLM judges reduce annotation costs, they still rely on high-quality labeled datasets for benchmarking.
-    \item \textbf{Generalization Across Domains}: Judges trained on dialogue or summarization tasks may not generalize well to code evaluation.
-    \item \textbf{Transparency and Bias}: Understanding biases in judge models remains limited. Future work must identify and mitigate systematic errors.
-    \item \textbf{Multi-level Evaluation}: Capturing both functional correctness and requirement adherence is still unsolved for complex multi-step tasks.
-\end{itemize}
+\subsection{Instruction Following and Dialogue Helpfulness}
+Judges assess adherence to user instructions, helpfulness/harmlessness, and style constraints, typically via pairwise comparisons or rubric-based scoring~\cite{zheng2023judgelm, li2024_llmsasjudges}. Common pitfalls include verbosity bias and order sensitivity.
 
+\subsection{Code Generation}
+Execution-based pass/fail (e.g., HumanEval) provides objective correctness, with judges complementing tests on style, clarity, and alignment with requirements~\cite{chen2021evaluating, li2024_llmsasjudges}.
 
-\subsection{Challenges and Open Problems}
-Key open issues include: multilingual consistency \cite{hada2024metal}, minimizing order and formatting sensitivity \cite{zheng2023judgelm}, mitigating evaluator bias \cite{liang2022helm}, ensuring calibration under distribution shift \cite{bavaresco2024judgebench}, and robustly integrating objective and subjective signals \cite{chen2021evaluating, li2024_llmsasjudges}. Future directions include adaptive judge ensembles, adversarial robustness auditing, and fine-grained uncertainty quantification for evaluation decisions. \cite{ouyang2022training} makes the really intersting point, that the inherent goal of common LLMs deployed today is the prediction of the next token on a webpage from the intent, which is fundamentally different from the objective “follow the user`s instructions helpfully and safely”.
+\subsection{Summarization and Machine Translation}
+LLM judges capture semantic adequacy and faithfulness beyond surface overlap metrics; pairwise protocols and scenario stratification improve reliability~\cite{fu2023gptscore, liang2022helm}. Domain and language shifts remain important considerations~\cite{hada2024metal}.
+
+\subsection{Retrieval-Augmented and Grounded Tasks}
+Evaluators check consistency between responses and provided context (evidence grounding), in addition to instruction adherence. Multi-axis reporting helps isolate context quality from response quality~\cite{liang2022helm, li2024_llmsasjudges}.
+
+\subsection{Leaderboards and Model Selection}
+Arena-style pairwise frameworks aggregate outcomes to rank models, informing deployment choices and ablations~\cite{zheng2023judgelm}. Confidence intervals and slice analysis help interpret close rankings~\cite{bavaresco2024judgebench}.
+
+\subsection{Multilingual and Multimodal Settings}
+Multilingual evaluations expose disparities in judge reliability and require language-aware protocols and balancing~\cite{hada2024metal}. (Multimodal is analogous but beyond our current scope.)
+
+\subsection{Safety and Moderation}
+Judges are used to evaluate safety policies and detect policy violations as part of broader moderation pipelines~\cite{li2024_llmsasjudges}. Robustness to adversarial prompts remains a challenge.
+
+\subsection{Operational Notes}
+Across applications, reporting by scenario/language slices and tracking robustness, calibration, and fairness remain essential for trustworthy use (see Chapter~5)~\cite{liang2022helm, bavaresco2024judgebench}.

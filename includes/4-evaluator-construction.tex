@@ -7,7 +7,7 @@ The simplest approach uses a pre-trained LLM $M_{\psi}$ with a carefully designe
 \subsection{Fine-Tuned / Reward-Model Judges}
 Reward models from preference data~\cite{stiennon2020learning, ouyang2022training} explicitly fit a surrogate $J_{\phi}$ by maximizing likelihood of human pairwise comparisons. This provides a few nice properties:
 \begin{itemize}
-	\item \textbf{Consistency:} Under i.i.d. sampling and sufficiently expressive model class, MLE converges (up to identifiability constants) to a monotone transform of $q^{*}$.
+	\item \textbf{Consistency:} Under i.i.d.\ sampling and sufficiently expressive model class, MLE converges (up to identifiability constants) to a monotone transform of $q^{*}$.
 	\item \textbf{Sample Efficiency:} Actively choosing comparison pairs with close predicted utility (uncertain pairs) can reduce label complexity (active preference learning — conceptually supporting meta-evaluation frameworks; see pairwise-focused analyses~\cite{liu2024pairs}).
 	\item \textbf{Distribution Shaping:} You can weight examples to better approximate the deployment distribution or to flatten over-sampled easy prompts.
 \end{itemize}
