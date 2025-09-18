@@ -24,12 +24,3 @@ Y2 = def function():
     # This function checks signal A.
     if A == true: 
         B = 3.
-
-
-
-
-\subsection{Objective Signals vs Judge Scores (Functional Correctness)}
-For code, execution-based evaluation remains critical: HumanEval defines correctness as passing predefined tests~\citep{chen2021evaluating}. However, execution-only misses requirement adherence and style; combining objective signals with judge scores balances efficiency and coverage~\cite{li2024_llmsasjudges}.
-
-\subsection{Robustness, Bias, and Consistency}
-Meta-evaluations test stability under order/paraphrase perturbations and across languages/domains. Evidence shows order sensitivity and formatting effects in pairwise judging~\cite{zheng2023judgelm}, multilingual variability~\cite{hada2024metal}, and slice-dependent reliability~\cite{bavaresco2024judgebench}. Fairness analysis along HELM-style axes helps reveal subgroup disparities~\cite{liang2022helm}. Preference-focused works further examine pairwise reliability and aggregation~\cite{liu2024pairs}.

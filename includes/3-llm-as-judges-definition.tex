@@ -4,7 +4,7 @@
 LLMs are adopted as evaluators because they can approximate human quality and preference judgments across diverse tasks at far lower marginal cost and latency than repeated human annotation, while achieving strong agreement and stable comparative rankings in structured protocols~\cite{li2024_llmsasjudges, zheng2023judgelm, bavaresco2024judgebench}. Traditional surface-form overlap metrics (e.g., BLEU, ROUGE) miss semantic fidelity and instruction adherence~\cite{papineni2002bleu, lin2004rouge}, whereas prompt- or preference-driven LLM judges can assess nuanced dimensions like reasoning depth, contextual grounding, and alignment~\cite{fu2023gptscore, stiennon2020learning, ouyang2022training}.
 
 \subsection{Core Components of an LLM-as-a-Judge Evaluator}
-We distill essential components (survey foundation in~\cite{li2024_llmsasjudges}) and supporting empirical frameworks:
+We distill essential components (survey foundation in~\cite{li2024_llmsasjudges}) and supporting empirical frameworks. Further detail on the essential components will be discussed in future sections:
 \begin{enumerate}
 	\item \textbf{Evaluation Scope / Scenarios}: Definition of task and domain coverage; scenario diversity and multi-axis reporting influence generalization and fairness~\cite{liang2022helm, srivastava2022bigbench}.
 	\item \textbf{Input \& Context Handling}: Prompt formatting, optional retrieved or conversational context, and normalization to mitigate leakage or bias~\cite{liang2022helm, hada2024metal}.
