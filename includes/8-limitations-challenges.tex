@@ -1,6 +1,6 @@
 
 \section{Limitations and Challenges of LLM-as-Judge Evaluators}
-This section highlights two foundational, cross-cutting open challenges that underlie many surface-level issues (robustness, fairness, calibration, transfer) discussed elsewhere.
+This section highlights three foundational, cross-cutting open challenges that underlie many surface-level issues (robustness, fairness, calibration, transfer) discussed elsewhere.
 
 \subsection{Human Annotator Disagreement and Uncertain Preferences}
 Rather than a single latent ordering, many tasks yield a \emph{distribution} over plausible preferences for response pairs or rankings. Pairwise signals are frequently modeled via probabilistic frameworks (e.g., Bradley--Terry, Elo) acknowledging stochastic choice~\cite{bradley1952rank, elo1978rating, liu2024pairs}. However, meta-evaluation pipelines often collapse multiple votes into a single label without carrying forward uncertainty (vote entropy, variance). This conflation distorts rank correlation interpretation, inflates apparent calibration error on ambiguous pairs, and can bias fairness audits if disagreement clusters in specific subgroups or languages~\cite{hada2024metal, liang2022helm}.
@@ -14,15 +14,21 @@ Although posing a significant challenge, there are some promising mitigation dir
 \end{itemize}
 
 \subsection{Reliability and Generalization of Fine-Tuned / RLHF Judges}
-Reward / judge models are one promising approach to approximate latent human utility but may: (i) overweight superficial features (verbosity, specific lexical tokens), (ii) exhibit prompt and order sensitivity, (iii) lose calibration when distribution shifts, (iv) carry forward training-set biases across languages or domains, and (v) become stale as frontier model behaviors evolve~\cite{li2024_llmsasjudges, bavaresco2024judgebench, hada2024metal}. These factors can induce ranking instability, fairness disparities, or inconsistent pairwise decisions unseen during initial validation.
-
-Luckily, we see emerging best practices and research directions to also address these issues. Among others, these include:
+Reward / judge models (including fine-tuned and RLHF-derived evaluators) offer a scalable proxy for latent human utility, yet their reliability depends critically on the breadth, balance, and latent coverage of the preference (or scoring) datasets on which they are trained. As noted by~\cite{zhu2023judgelm}, they face two central, structural limitations:
 \begin{itemize}
-	\item \textbf{Diverse, Continual Benchmarking:} Periodically re-evaluate judges across heterogeneous tasks, languages, and prompt templates (HELM-style scenario coverage) to detect drift~\cite{liang2022helm, hada2024metal}.
-	\item \textbf{Ensemble / Prompt Diversification:} Aggregate multiple judge prompts or model variants to reduce single-prompt bias and variance; flag high-variance cases for human review~\cite{li2024_llmsasjudges, zheng2023judgelm}.
-	\item \textbf{Robustness Stress Testing:} Systematically perturb order, formatting, and paraphrases to quantify instability and gate deployment~\cite{zheng2023judgelm, li2024_llmsasjudges}.
-	\item \textbf{Hybrid Objective + Subjective Signals:} Combine execution tests (code), factuality probes, or retrieval-grounding checks with judge scores to anchor subjective assessments~\cite{chen2021evaluating, liang2022helm}.
+	\item \textbf{Data Coverage Dependence:} They rely on carefully curated, sufficiently large, and exhaustively \emph{representative} datasets; in practice, preference corpora often skew toward a narrow band of tasks, languages, stylistic registers, safety categories, or prompt formats, causing systematic distribution shift at deployment and masking brittleness on under-represented phenomena (e.g., long-context reasoning, multilingual nuance, domain expertise).
+	\item \textbf{Systematic Bias Sensitivity:} They are susceptible to positional, knowledge, and format biases: e.g., consistent left/right (A/B) positional artifacts, over-weighting surface verbosity or chain-of-thought presence, hallucinated correctness when authoritative tone appears, or degradation when confronted with domain facts outside pretraining knowledge.
+\end{itemize}
+Both these limitations, together with the fact that this field is inherently underexplored right now, make this an open research problem.
+
+\subsection{Evaluator Interpretability and Explainability}
+Current LLM-as-a-judge evaluators often produce opaque scores or preferences with limited insight into their reasoning process, making it difficult for practitioners to understand, validate, or debug evaluation decisions~\cite{li2024_llmsasjudges}. This opacity becomes particularly problematic in high-stakes applications where stakeholders need to understand \emph{why} a particular response was rated favorably or unfavorably. Traditional numerical scores (e.g., 1-10 scales) provide little semantic grounding about which specific aspects of a response drove the evaluation, hampering both trust and iterative improvement.
+
+Several promising approaches address interpretability challenges:
+\begin{itemize}
+	\item \textbf{Probabilistic Human Preference Representation:} Instead of abstract scores, represent evaluations as calibrated probabilities reflecting how likely a human annotator would prefer one response over another~\cite{stiennon2020learning, ouyang2022training}. While this grounds evaluation outcomes in empirically observable human behavior patterns, it is currently only done in pairwise preference evluation paradigms, not pointwise scoring.
+	\item \textbf{Critique-then-Score Protocols:} Require judges to first articulate specific reasoning or critiques before producing numerical evaluations, creating an audit trail that can be validated against domain expertise~\cite{fu2023gptscore}.
 \end{itemize}
 
-\subsection{Interdependence of the Two Challenges}
-Disagreement-aware evaluation and robust learned judges are mutually reinforcing. Without modeling human uncertainty, we risk mis-attributing irreducible ambiguity to judge error; without stable, generalizable judges, we falsely interpret model-induced variance as label noise. Future work likely converges on joint frameworks that (i) treat human preference as a probabilistic object with explicit uncertainty, and (ii) train or select judges under distributionally diverse, robustness- and calibration-aware criteria.~\cite{li2024_llmsasjudges, liang2022helm, bavaresco2024judgebench}.
+\subsection{Interdependence of the Three Challenges}
+Disagreement-aware evaluation, robust learned judges, and interpretable evaluation frameworks are mutually reinforcing. Without modeling human uncertainty, we risk mis-attributing irreducible ambiguity to judge error; without stable, generalizable judges, we falsely interpret model-induced variance as label noise; without interpretable evaluation representations, we cannot effectively validate, debug, or build trust in judge decisions. Future work likely converges on joint frameworks that (i) treat human preference as a probabilistic object with explicit uncertainty, (ii) train or select judges under distributionally diverse, robustness- and calibration-aware criteria, and (iii) provide transparent, human-interpretable evaluation reasoning~\cite{li2024_llmsasjudges, liang2022helm, bavaresco2024judgebench}.

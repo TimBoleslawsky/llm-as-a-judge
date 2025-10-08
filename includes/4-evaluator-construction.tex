@@ -5,7 +5,7 @@ We survey common approaches to constructing evaluators (judges) $J$ that approxi
 The simplest approach uses a pre-trained LLM $M_{\psi}$ with a carefully designed evaluation prompt $P$ to produce a score or preference. But when using an LLM as-is (with an evaluation prompt), we implicitly assume the base model internally approximates $q^{*}$ “well enough” for the prompt distribution $D$~\cite{li2024_llmsasjudges, fu2023gptscore}. This risks that hidden miscalibration or systematic biases not corrected by a prompt alone~\cite{bavaresco2024judgebench, hada2024metal}.
 
 \subsection{Fine-Tuned / Reward-Model Judges}
-Reward models from preference data~\cite{stiennon2020learning, ouyang2022training} explicitly fit a surrogate $J_{\phi}$ by maximizing likelihood of human pairwise comparisons. This provides a few nice properties:
+Adapting reward model techniques from human preference learning~\cite{stiennon2020learning, ouyang2022training}, fine-tuned judges explicitly fit a surrogate $J_{\phi}$ by maximizing likelihood of human pairwise comparisons. The idea was introduced by~\cite{zhu2023judgelm}. This provides a few nice properties:
 \begin{itemize}
 	\item \textbf{Consistency:} Under i.i.d.\ sampling and sufficiently expressive model class, MLE converges (up to identifiability constants) to a monotone transform of $q^{*}$.
 	\item \textbf{Sample Efficiency:} Actively choosing comparison pairs with close predicted utility (uncertain pairs) can reduce label complexity (active preference learning — conceptually supporting meta-evaluation frameworks; see pairwise-focused analyses~\cite{liu2024pairs}).

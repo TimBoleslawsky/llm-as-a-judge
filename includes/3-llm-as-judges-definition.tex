@@ -7,9 +7,9 @@ LLMs are adopted as evaluators because they can approximate human quality and pr
 We distill essential components (survey foundation in~\cite{li2024_llmsasjudges}) and supporting empirical frameworks. Further detail on the essential components will be discussed in future sections.
 \begin{enumerate}
 	\item \textbf{Evaluation Scope / Scenarios}: Definition of task and domain coverage.~\cite{liang2022helm, srivastava2022bigbench}. This includes failure mode ($X$ \& $C$, $Y$, or mapping from $X$ \& $C$ to $Y$).
-	\item \textbf{Judgment Paradigm}: Pointwise scoring, pairwise preference, pass/fail (objective tests), or tournament / listwise aggregation; pairwise often yields higher resolution~\cite{bradley1952rank, zheng2023judgelm, liu2024pairs, chen2021evaluating}.
-	\item \textbf{Judge Model Type}: Prompt-engineered base LLM, fine-tuned reward / preference model, or ensemble for variance and bias reduction~\cite{stiennon2020learning, ouyang2022training, bavaresco2024judgebench}.
-	\item \textbf{Rubric / Prompt Template}: Dimension specification (accuracy, faithfulness, style, safety), critique-first prompting, and structured output schema~\cite{fu2023gptscore, li2024_llmsasjudges}.
+	\item \textbf{Evaluation Paradigm}: Pointwise scoring, pairwise preference, pass/fail (objective tests), or tournament / listwise aggregation; see section 2 B.
+	\item \textbf{Judge Model Type}: Prompt-engineered base LLM, fine-tuned reward / preference model, or ensemble for variance and bias reduction~\cite{zhu2023judgelm, bavaresco2024judgebench}.
+	\item \textbf{Prompt Template}: Dimension specification (accuracy, faithfulness, style, safety), critique-first prompting, and structured output schema~\cite{fu2023gptscore, li2024_llmsasjudges}.
 	\item \textbf{Meta-Evaluation Metrics}: Agreement (pairwise accuracy, rank correlation), calibration, robustness (order / paraphrase), fairness (subgroup disparity), consistency (variance), and efficiency / cost~\cite{bavaresco2024judgebench, hada2024metal, li2024_llmsasjudges}.
 	\item \textbf{Objective Signals (When Available)}: Execution-based or other task-grounded checks (e.g., unit tests for code) complement subjective judgment~\cite{chen2021evaluating, li2024_llmsasjudges}.
 \end{enumerate} 
